@@ -8,9 +8,10 @@
 import SwiftUI
 
 struct ContentView: View {
+    @SceneStorage("selectedView") var selectedView: String?
 
     var body: some View {
-        TabView {
+        TabView(selection: $selectedView) {
             HomeView()
                 .tag(HomeView.tag)
                 .tabItem {

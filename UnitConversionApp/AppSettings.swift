@@ -1,18 +1,17 @@
 //
 //  AppSettings.swift
-//  Unitify
+//  UnitConversionApp
 //
-//  Created by Marwa Abou Niaaj on 05/08/2022.
+//  Created by Marwa Abou Niaaj on 12/08/2022.
 //
 
 import Foundation
 
+/// An environment singleton responsible for shared app settings
 final class AppSettings: ObservableObject {
 
     static let shared = AppSettings()
     private init() {}
-
-    @Published var theme = Theme()
 
     @Published var favoritesArchive = FavoritesArchive()
 }

@@ -1,8 +1,8 @@
 //
 //  UnitConversionViewModel.swift
-//  Unitify
+//  UnitConversionApp
 //
-//  Created by Marwa Abou Niaaj on 08/08/2022.
+//  Created by Marwa Abou Niaaj on 12/08/2022.
 //
 
 import Foundation
@@ -10,51 +10,35 @@ import Foundation
 extension UnitConversionView {
     class ViewModel: NSObject, ObservableObject {
         let archive = AppSettings.shared.favoritesArchive
-
-        let unit: UnitObject
+        let unit: Unit
 
         @Published var isFavorite = false
         @Published var unitTypes = [Dimension]()
-        @Published var inputValue = 1.0
+        @Published var inputValue = 10.0
         @Published var inputUnit: Dimension = UnitLength.kilometers
         @Published var outputUnit: Dimension = UnitLength.kilometers
 
-        init(unit: UnitObject) {
+        init(unit: Unit) {
             self.unit = unit
 
             super.init()
             
-            self.unitTypes = UnitObject.unitTypes.filter({ $0.key == unit.name }).first?.value ?? [Dimension]()
+            self.unitTypes = Unit.unitTypes.filter({ $0.key == unit.name }).first?.value ?? [Dimension]()
             self.inputUnit = self.unitTypes[0]
             self.outputUnit = self.unitTypes[1]
         }
 
-//        init(favorite: Favorites) {
-//            self.unit = UnitObject.allUnits.filter { $0.name == favorite.unitString }.first!
-//            super.init()
-//
-//            self.isFavorite = true
-//            self.inputUnit = favorite.fromUnit
-//            self.outputUnit = favorite.toUnit
-//            self.inputValue = favorite.value
-//            self.unitTypes = UnitObject.unitTypes.filter({ $0.key == unit.name }).first?.value ?? []
-//        }
-
-        init(unit: UnitObject, convertFrom: Dimension, convertTo: Dimension, value: Double) {
+        init(unit: Unit, convertFrom: Dimension, convertTo: Dimension, value: Double) {
             self.unit = unit
             self.inputUnit = convertFrom
             self.outputUnit = convertTo
             self.inputValue = value
 
-            self.unitTypes = UnitObject.unitTypes.filter({ $0.key == unit.name }).first?.value ?? [Dimension]()
-        }
-
-        func updateUnit() {
-            unit.lastModified = Date()
+            self.unitTypes = Unit.unitTypes.filter({ $0.key == unit.name }).first?.value ?? [Dimension]()
         }
 
         func checkFavorite() {
-            if let _ = archive.conversions.units?.filter ({
+            if let _ = archive.favoriteUnitConversions.filter ({
                 $0.convertFrom == inputUnit && $0.convertTo == outputUnit
             }).first {
                 isFavorite = true
@@ -64,23 +48,23 @@ extension UnitConversionView {
         }
 
         func toggleFavorite() {
-//            if isFavorite {
-//                addToFavorites()
-//            } else {
-//                removeFromFavorites()
-//            }
+            if isFavorite {
+                addToFavorites()
+            } else {
+                removeFromFavorites()
+            }
         }
 
         private func addToFavorites() {
-//            let fav = UnitConversion(convertFrom: inputUnit, convertTo: outputUnit, unit: unit.name, value: inputValue)
-//            archive.addToFavorites(fav)
+            let fav = UnitConversion(convertFrom: inputUnit, convertTo: outputUnit, unit: unit.name, value: inputValue)
+            archive.addToFavorites(fav)
         }
 
         private func removeFromFavorites() {
-//            guard let fav = archive.favoriteUnitConversions.filter({
-//                $0.convertFrom == inputUnit && $0.convertTo == outputUnit
-//            }).first else { return }
-//            archive.removeFromFavorites(fav)
+            guard let fav = archive.favoriteUnitConversions.filter({
+                $0.convertFrom == inputUnit && $0.convertTo == outputUnit
+            }).first else { return }
+            archive.removeFromFavorites(fav)
         }
     }
 }

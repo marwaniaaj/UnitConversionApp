@@ -1,16 +1,15 @@
 //
 //  UnitConversionView.swift
-//  Unitify
+//  UnitConversionApp
 //
-//  Created by Marwa Abou Niaaj on 06/08/2022.
+//  Created by Marwa Abou Niaaj on 12/08/2022.
 //
 
 import SwiftUI
 
 struct UnitConversionView: View {
     @ObservedObject private var settings = AppSettings.shared
-    
-    @EnvironmentObject var dataController: DataController
+
     @StateObject var viewModel: ViewModel
     
     @FocusState private var amountIsFocused: Bool
@@ -29,7 +28,7 @@ struct UnitConversionView: View {
         Form {
             Section {
                 HStack {
-                    Text("ConvertFrom")
+                    Text("Convert from")
                         .font(.title3)
 
                     Spacer()
@@ -45,11 +44,9 @@ struct UnitConversionView: View {
                         + Text(" \(Image(systemName: "chevron.up.chevron.down"))")
                     }
                 }
-                .accessibilityElement(children: .combine)
-                .accessibility(label: Text("ConvertFrom") + Text(longFormatter.string(from: viewModel.inputUnit)))
 
                 HStack {
-                    Text("ConvertTo")
+                    Text("Convert to")
                         .font(.title3)
 
                     Spacer()
@@ -65,9 +62,6 @@ struct UnitConversionView: View {
                         + Text(" \(Image(systemName: "chevron.up.chevron.down"))")
                     }
                 }
-
-                .accessibilityElement(children: .combine)
-                .accessibility(label: Text("ConvertTo") + Text(longFormatter.string(from: viewModel.outputUnit)))
             }
 
             Section {
@@ -75,19 +69,19 @@ struct UnitConversionView: View {
                     .keyboardType(.decimalPad)
                     .focused($amountIsFocused)
             } header: {
-                Text("AmountToConvert")
+                Text("Amount to convert")
                     .font(.body)
                     .textCase(.none)
-                    .foregroundColor(settings.theme.primaryColor)
+                    .foregroundColor(Color.accentColor)
             }
 
             Section {
                 Text(outputNumber)
             } header: {
-                Text("Output")
+                Text("Result")
                     .font(.body)
                     .textCase(.none)
-                    .foregroundColor(settings.theme.primaryColor)
+                    .foregroundColor(Color.accentColor)
             }
         }
         .navigationTitle(LocalizedStringKey(viewModel.unit.name))
@@ -98,7 +92,7 @@ struct UnitConversionView: View {
                 Button {
                     amountIsFocused = false
                 } label: {
-                    Label("HideKeyboard", systemImage: "keyboard.chevron.compact.down")
+                    Label("Hide keyboard", systemImage: "keyboard.chevron.compact.down")
                 }
             }
             ToolbarItemGroup(placement: .navigationBarTrailing) {
@@ -107,12 +101,11 @@ struct UnitConversionView: View {
                     viewModel.toggleFavorite()
                 } label: {
                     Label(
-                        viewModel.isFavorite ? "RemoveFromFavorite" : "AddToFavorite",
+                        "Toggle favorite",
                         systemImage: viewModel.isFavorite ? "star.fill" : "star"
                     )
-                        .foregroundColor(settings.theme.primaryColor)
+                    .foregroundColor(Color.accentColor)
                 }
-                .buttonStyle(FavoriteButtonStyle(isFavorite: viewModel.isFavorite))
             }
         }
 
@@ -124,11 +117,10 @@ struct UnitConversionView: View {
         }
         .onAppear {
             viewModel.checkFavorite()
-            viewModel.updateUnit()
         }
     }
 
-    init(unit: UnitObject) {
+    init(unit: Unit) {
         let viewModel = ViewModel(unit: unit)
         _viewModel = StateObject(wrappedValue: viewModel)
 
@@ -141,7 +133,7 @@ struct UnitConversionView: View {
         shortFormatter.unitStyle = .medium
     }
 
-    init(unit: UnitObject, convertFrom: Dimension, convertTo: Dimension, value: Double) {
+    init(unit: Unit, convertFrom: Dimension, convertTo: Dimension, value: Double) {
         let viewModel = ViewModel(unit: unit, convertFrom: convertFrom, convertTo: convertTo, value: value)
         _viewModel = StateObject(wrappedValue: viewModel)
 
@@ -158,8 +150,7 @@ struct UnitConversionView: View {
 struct UnitConversionView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            UnitConversionView(unit: UnitObject.Sample)
+            UnitConversionView(unit: Unit.Sample)
         }
-        .environmentObject(DataController.preview)
     }
 }

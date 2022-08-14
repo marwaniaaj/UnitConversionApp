@@ -2,23 +2,18 @@
 //  Unit.swift
 //  UnitConversionApp
 //
-//  Created by Marwa Abou Niaaj on 05/08/2022.
+//  Created by Marwa Abou Niaaj on 12/08/2022.
 //
 
 import Foundation
 
+/// An object representing the unit of measures, and unit types.
+/// 
+/// All unit types are from [Units and Measurement](https://developer.apple.com/documentation/foundation/units_and_measurement)
 class Unit: NSObject, Identifiable, Codable {
     var id: UUID { UUID() }
     var name: String
     var icon: String
-    var category: String
-
-    var symbol: String {
-        if icon.isEmpty {
-            return "lines.measurement.horizontal"
-        }
-        return icon
-    }
 
     static let allUnits = Bundle.main.decode([Unit].self, from: "Units.json")
     static let Sample = allUnits[2]
@@ -37,52 +32,30 @@ class Unit: NSObject, Identifiable, Codable {
         ],
         "Length": [
             UnitLength.kilometers,
-            UnitLength.hectometers,
-            UnitLength.decameters,
             UnitLength.meters,
-            UnitLength.decimeters,
             UnitLength.centimeters,
             UnitLength.millimeters,
-            UnitLength.micrometers,
-            UnitLength.nanometers,
-            UnitLength.picometers,
             UnitLength.inches,
             UnitLength.feet,
             UnitLength.yards,
             UnitLength.miles
         ],
         "Volume": [
-            UnitVolume.teaspoons,
-            UnitVolume.tablespoons,
             UnitVolume.fluidOunces,
             UnitVolume.cups,
-            UnitVolume.metricCups,
             UnitVolume.quarts,
             UnitVolume.pints,
-            UnitVolume.gallons,
-
             UnitVolume.liters,
-            UnitVolume.deciliters,
-            UnitVolume.centiliters,
-            UnitVolume.milliliters
-        ],
-        "Angle": [
-            UnitAngle.degrees,
-            UnitAngle.radians,
-            UnitAngle.gradians,
-            UnitAngle.revolutions,
-            UnitAngle.arcMinutes,
-            UnitAngle.arcSeconds
+            UnitVolume.milliliters,
+            UnitVolume.teaspoons,
+            UnitVolume.tablespoons,
         ],
         "Mass": [
             UnitMass.kilograms,
             UnitMass.grams,
             UnitMass.milligrams,
-            UnitMass.micrograms,
-            UnitMass.nanograms,
             UnitMass.ounces,
-            UnitMass.pounds,
-            UnitMass.carats
+            UnitMass.pounds
         ],
         "Duration": [
             UnitDuration.seconds,
@@ -92,25 +65,18 @@ class Unit: NSObject, Identifiable, Codable {
         "Speed": [
             UnitSpeed.kilometersPerHour,
             UnitSpeed.milesPerHour,
-            UnitSpeed.metersPerSecond,
-            UnitSpeed.knots
+            UnitSpeed.metersPerSecond
         ],
         "Energy": [
             UnitEnergy.joules,
             UnitEnergy.calories,
             UnitEnergy.kilojoules,
-            UnitEnergy.kilocalories,
-            UnitEnergy.kilowattHours
+            UnitEnergy.kilocalories
         ],
         "Temperature": [
             UnitTemperature.fahrenheit,
             UnitTemperature.celsius,
             UnitTemperature.kelvin
-        ],
-        "Fuel Efficiency": [
-            UnitFuelEfficiency.milesPerGallon,
-            UnitFuelEfficiency.litersPer100Kilometers,
-            UnitFuelEfficiency.milesPerImperialGallon
         ]
     ]
 }

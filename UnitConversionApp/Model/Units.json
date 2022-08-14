@@ -1,52 +1,34 @@
 [
     {
         "name": "Area",
-        "icon": "square.grid.3x3.square",
-        "category": "Physical Dimension"
+        "icon": "square.grid.3x3.square"
     },
     {
         "name": "Length",
-        "icon": "ruler",
-        "category": "Physical Dimension"
+        "icon": "ruler"
     },
     {
         "name": "Volume",
-        "icon": "circle.hexagongrid",
-        "category": "Physical Dimension"
-    },
-    {
-        "name": "Angle",
-        "icon": "x.squareroot",
-        "category": "Physical Dimension"
+        "icon": "circle.hexagongrid"
     },
     {
         "name": "Mass",
         "icon": "scalemass",
-        "category": "Mass"
     },
     {
         "name": "Duration",
-        "icon": "hourglass",
-        "category": "Time"
+        "icon": "hourglass"
     },
     {
         "name": "Speed",
-        "icon": "speedometer",
-        "category": "Motion"
+        "icon": "speedometer"
     },
     {
         "name": "Energy",
-        "icon": "flame.fill",
-        "category": "Energy"
+        "icon": "flame.fill"
     },
     {
         "name": "Temperature",
-        "icon": "thermometer",
-        "category": "Heat"
-    },
-    {
-        "name": "Fuel Efficiency",
-        "icon": "fuelpump",
-        "category": "Other"
+        "icon": "thermometer"
     }
 ]

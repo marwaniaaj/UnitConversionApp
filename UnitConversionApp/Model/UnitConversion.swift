@@ -2,12 +2,15 @@
 //  UnitConversion.swift
 //  UnitConversionApp
 //
-//  Created by Marwa Abou Niaaj on 08/08/2022.
+//  Created by Marwa Abou Niaaj on 12/08/2022.
 //
 
 import Foundation
 
-
+/// An object that holds unit conversion data.
+///
+/// Conforms to `NSSecureCoding` to encode/decode instances of the object,
+/// since `Dimension` also conforms to `NSSecureCoding`.
 @objc(UnitConversion)
 class UnitConversion: NSObject, Identifiable, NSSecureCoding {
     var id: UUID
@@ -16,6 +19,7 @@ class UnitConversion: NSObject, Identifiable, NSSecureCoding {
     var unit: String
     var value: Double = 0.0
 
+    // the class must override the getter for its supportsSecureCoding property to return true.
     static var supportsSecureCoding: Bool {
         return true
     }
@@ -28,6 +32,8 @@ class UnitConversion: NSObject, Identifiable, NSSecureCoding {
         self.value = value
     }
 
+    // An object that does override init(coder:)
+    // must decode any enclosed objects using the decodeObject(OfClass:forKey:) method.
     required init?(coder: NSCoder) {
         guard
             let id = coder.decodeObject(of: [NSUUID.self], forKey: "id") as? UUID,
@@ -56,11 +62,16 @@ class UnitConversion: NSObject, Identifiable, NSSecureCoding {
     }
 }
 
+/// An object that holds an array of `UnitConversion`.
+///
+/// Conforms to `NSSecureCoding` to encode/decode instances of the object,
+/// since `UnitConversion` also conforms to `NSSecureCoding`.
 @objc(Conversions)
 class Conversions: NSObject, NSSecureCoding {
 
     var units: [UnitConversion]?
 
+    // the class must override the getter for its supportsSecureCoding property to return true.
     static var supportsSecureCoding: Bool {
         return true
     }
@@ -69,10 +80,12 @@ class Conversions: NSObject, NSSecureCoding {
         super.init()
         self.units = []
     }
-    
+
+    // An object that does override init(coder:)
+    // must decode any enclosed objects using the decodeObject(OfClass:forKey:) method.
     required init?(coder: NSCoder) {
         guard
-            let units = coder.decodeObject(of: [NSArray.self, Dimension.self, NSString.self, Conversions.self, UnitConversion.self], forKey: "units") as? [UnitConversion]
+            let units = coder.decodeObject(of: [NSArray.self, UnitConversion.self], forKey: "units") as? [UnitConversion]
         else {
             return nil
         }
