@@ -1,0 +1,52 @@
+[
+    {
+        "name": "Area",
+        "icon": "square.grid.3x3.square",
+        "category": "Physical Dimension"
+    },
+    {
+        "name": "Length",
+        "icon": "ruler",
+        "category": "Physical Dimension"
+    },
+    {
+        "name": "Volume",
+        "icon": "circle.hexagongrid",
+        "category": "Physical Dimension"
+    },
+    {
+        "name": "Angle",
+        "icon": "x.squareroot",
+        "category": "Physical Dimension"
+    },
+    {
+        "name": "Mass",
+        "icon": "scalemass",
+        "category": "Mass"
+    },
+    {
+        "name": "Duration",
+        "icon": "hourglass",
+        "category": "Time"
+    },
+    {
+        "name": "Speed",
+        "icon": "speedometer",
+        "category": "Motion"
+    },
+    {
+        "name": "Energy",
+        "icon": "flame.fill",
+        "category": "Energy"
+    },
+    {
+        "name": "Temperature",
+        "icon": "thermometer",
+        "category": "Heat"
+    },
+    {
+        "name": "Fuel Efficiency",
+        "icon": "fuelpump",
+        "category": "Other"
+    }
+]
